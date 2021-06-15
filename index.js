@@ -10,22 +10,28 @@ class Timer {
     }
 
         start = () => {
-            setInterval(this.tick, 1000)
+            this.tick(); //calling 1st second tick right after the click
+            this.interval = setInterval(this.tick, 1000);
         }
         pause = () => {
-            console.log('Pause timer')
+            clearInterval(this.interval);
         }
         onDurationChange() {
             
         }
         tick = () => {
-            let seconds = parseInt(this.durationInput.value);
-            if(seconds > 0 ) {
-                seconds--;
-                this.durationInput.value = seconds;
+            if(this.timeRemaining > 0 ) {
+                this.timeRemaining = this.timeRemaining - 1; //using get and set opertators
             } else {
-                console.log('Finish!!')
+                clearInterval(this.interval);
+                console.log('Finish!!');
             }
+        }
+        get timeRemaining() {
+            return parseFloat(this.durationInput.value);
+        }
+        set timeRemaining(seconds) {
+            this.durationInput.value = seconds;
         }
     
 }
